@@ -1,0 +1,22 @@
+const val API_KEY = "5548d7cb912149f29d5122456222511"
+val url = "https://api.weatherapi.com/v1/forecast.json?key=" +
+                API_KEY +
+                "&q=" +
+                city +
+                "&days=" +
+                "7" +
+                "&aqi=no&alerts=no"
+                val request = StringRequest(
+            Request.Method.GET,
+            url,
+            {
+                result -> parseWeatherData(result)
+            },
+            {
+                error -> Log.d("MyLog", "Error: $error")
+            }
+        private fun parseWeatherData(result: String){
+        val mainObject = JSONObject(result)
+        val list = parseDays(mainObject)
+        parsCurrentData(mainObject, list[0])
+    }
